@@ -138,7 +138,7 @@ public class RelojDigital {
 
             for (int i = 0; i < ALTO; i++) {
 
-                for (int j = 0; j < 7; j++) {
+                for (int j = 0; j < 9; j++) {
                     System.out.print(" ");
                 }
                 for (int j = 0; j < 8; j++) {
