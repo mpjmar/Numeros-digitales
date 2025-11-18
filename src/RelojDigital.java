@@ -1,7 +1,5 @@
 import java.time.LocalTime;
 
-
-
 public class RelojDigital {
 
     public static void horizontal(boolean linea, int ancho) {
@@ -137,7 +135,7 @@ public class RelojDigital {
             int minuto2 = minuto % 10;
             int segundo1 = segundo / 10;
             int segundo2 = segundo % 10;
-            
+
             for (int i = 0; i < ALTO; i++) {
 
                 for (int j = 0; j < 7; j++) {
