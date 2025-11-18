@@ -108,36 +108,65 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        /* boolean superior = true;
-        boolean superiorDerecha = true;
-        boolean superiorIzquierda = true;
-        boolean central = true;
-        boolean inferiorIzquierda = true;
-        boolean inferiorDerecha = true;
-        boolean inferior = true; */
-        boolean correcto = false;
+
+        boolean correcto = false, salir = false;
         final int ALTO = 7;
-        // final int ANCHO = 5;
-        int num = 0;
+        int opcion = 0, num = 0;
         
         do {
+        
+            System.out.println("""
+            *****************************************
+            *                                       *
+            *       NÚMEROS DIGITALES v1.0          *
+            *                                       *
+            *****************************************
+            *                                       *
+            *   [1] Mostrar secuencia (0 a N)       *
+            *   [2] Número específico               *
+            *   [0] Salir                           *
+            *                                       *
+            *****************************************
+            """);
+
             try {
-                System.out.print("Introduce un número del 0 al 9: ");
-                num = Integer.parseInt(System.console().readLine());
-                correcto = num >= 0;
+                do {
+                    opcion = Integer.parseInt(System.console().readLine());
+                    correcto = opcion >= 0 && opcion <= 2;
+                    if (!correcto) System.out.println("La opción introducida no es correcta.");
+                } while (!correcto);
             } catch (NumberFormatException e) {
                 System.out.println("El número debe ser un entero.");
             } catch (Exception e) {
                 System.out.println("Ha ocurrido un error inesperado.");
             }
-        } while (!correcto);
-
-        for (int i = 0; i < ALTO; i++) {
-            for (int j = 0; j <= num; j++) {
-                pintaNumero(i, j);
-                System.out.print("  ");
-            }
-            System.out.println();
-        }
-    }
+            
+            switch (opcion) {
+                case 0:
+                    salir = true;
+                    break;
+                case 1: 
+                    System.out.print("Introduce un número del 0 al 9: ");
+                    num = Integer.parseInt(System.console().readLine());
+                    for (int i = 0; i < ALTO; i++) {
+                        for (int j = 0; j <= num; j++) {
+                            pintaNumero(i, j);
+                            System.out.print("  ");
+                        }
+                        System.out.println();
+                    }
+                    break;
+                case 2:
+                    System.out.print("Introduce un número del 0 al 9: ");
+                    num = Integer.parseInt(System.console().readLine());
+                    for (int i = 0; i < ALTO; i++) {
+                        pintaNumero(i, num);
+                        System.out.println();
+                    }
+                    break;
+                default:
+                    break;
+            }            
+        } while (!salir);
+    } 
 }
