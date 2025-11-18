@@ -1,5 +1,8 @@
+import java.time.LocalTime;
 
-public class App {
+
+
+public class RelojDigital {
 
     public static void horizontal(boolean linea, int ancho) {
         for (int j = 0; j < ancho; j++) {
@@ -9,7 +12,7 @@ public class App {
                 System.out.print(" ");
         }
     }
-
+    
     public static void vertical(boolean linea, int ancho, int pos) {
         for (int j = 0; j < ancho; j++) {
             if (linea)
@@ -18,9 +21,9 @@ public class App {
                 System.out.print(" ");
         }
     }
-
+    
     public static void pintaNumero(int fila, int num) {
-
+    
         boolean superior = true;
         boolean superiorDerecha = true;
         boolean superiorIzquierda = true;
@@ -28,9 +31,9 @@ public class App {
         boolean inferiorIzquierda = true;
         boolean inferiorDerecha = true;
         boolean inferior = true;
-
+    
         final int ANCHO = 5;
-
+    
         switch (num) {
             case 0:
                 central = false;
@@ -74,7 +77,7 @@ public class App {
             default:
                 break;
         }
-
+    
         switch (fila) {
             case 0: 
                 horizontal(superior, ANCHO);
@@ -102,70 +105,66 @@ public class App {
                 horizontal(inferior, ANCHO); 
                 break;
             default:
-
         }
+    }
+
+    public static void pintaPuntos(int fila) {
+        System.out.print((fila == 2 || fila == 4) ? "*" : " ");
+    }
+    
+    public static void limpiarPantalla() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static void main(String[] args) throws Exception {
 
-        boolean correcto = false, salir = false;
         final int ALTO = 7;
-        int opcion = 0, num = 0;
-        
-        do {
-        
-            System.out.println("""
-            *****************************************
-            *                                       *
-            *       NÚMEROS DIGITALES v1.0          *
-            *                                       *
-            *****************************************
-            *                                       *
-            *   [1] Mostrar secuencia (0 a N)       *
-            *   [2] Número específico               *
-            *   [0] Salir                           *
-            *                                       *
-            *****************************************
-            """);
 
-            try {
-                do {
-                    opcion = Integer.parseInt(System.console().readLine());
-                    correcto = opcion >= 0 && opcion <= 2;
-                    if (!correcto) System.out.println("La opción introducida no es correcta.");
-                } while (!correcto);
-            } catch (NumberFormatException e) {
-                System.out.println("El número debe ser un entero.");
-            } catch (Exception e) {
-                System.out.println("Ha ocurrido un error inesperado.");
-            }
+        do { 
+            System.out.println("         **********************************************");
+            System.out.println("         ********** R E L O J  D I G I T A L **********");
+            System.out.println("         **********************************************");
+
+            LocalTime ahora = LocalTime.now(); 
+            int hora = ahora.getHour();
+            int minuto = ahora.getMinute();
+            int segundo = ahora.getSecond();
+
+            int hora1 = hora / 10;
+            int hora2 = hora % 10;
+            int minuto1 = minuto / 10;
+            int minuto2 = minuto % 10;
+            int segundo1 = segundo / 10;
+            int segundo2 = segundo % 10;
             
-            switch (opcion) {
-                case 0:
-                    salir = true;
-                    break;
-                case 1: 
-                    System.out.print("Introduce un número del 0 al 9: ");
-                    num = Integer.parseInt(System.console().readLine());
-                    for (int i = 0; i < ALTO; i++) {
-                        for (int j = 0; j <= num; j++) {
-                            pintaNumero(i, j);
-                            System.out.print("  ");
+            for (int i = 0; i < ALTO; i++) {
+
+                for (int j = 0; j < 7; j++) {
+                    System.out.print(" ");
+                }
+                for (int j = 0; j < 8; j++) {
+                    switch (j) {
+                        case 0 -> pintaNumero(i, hora1);
+                        case 1 -> pintaNumero(i, hora2);
+                        case 2 -> pintaPuntos(i);
+                        case 3 -> pintaNumero(i, minuto1);
+                        case 4 -> pintaNumero(i, minuto2);
+                        case 5 -> pintaPuntos(i);
+                        case 6 -> pintaNumero(i, segundo1);
+                        case 7 -> pintaNumero(i, segundo2);
+                        default -> System.out.print("");
                         }
-                        System.out.println();
+                        System.out.print("  ");
                     }
-                    break;
-                case 2:
-                    System.out.print("Introduce un número del 0 al 9: ");
-                    num = Integer.parseInt(System.console().readLine());
-                    for (int i = 0; i < ALTO; i++) {
-                        pintaNumero(i, num);
-                        System.out.println();
-                    }
-                    break;
-                default:
-                    break;
-            }            
-        } while (!salir);
-    } 
+                    System.out.println();
+
+                }
+                System.out.println("         **********************************************");
+                Thread.sleep(1000); 
+                limpiarPantalla();
+            } while (true);
+
+
+    }
 }
