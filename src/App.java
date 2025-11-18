@@ -28,11 +28,67 @@ public class App {
         boolean inferiorIzquierda = true;
         boolean inferiorDerecha = true;
         boolean inferior = true;
+        boolean correcto = false;
         final int ALTO = 7;
         final int ANCHO = 5;
-        // Pinta el número 5
-        superiorDerecha = false;
-        inferiorIzquierda = false;
+        int num = 0;
+        
+        do {
+            try {
+                System.out.print("Introduce un número del 0 al 9: ");
+                num = Integer.parseInt(System.console().readLine());
+                correcto = num >= 0;
+            } catch (NumberFormatException e) {
+                System.out.println("El número debe ser un entero.");
+            } catch (Exception e) {
+                System.out.println("Ha ocurrido un error inesperado.");
+            }
+        } while (!correcto);
+
+        switch (num) {
+            case 0:
+                central = false;
+                break;
+            case 1:
+                superior = false;
+                superiorIzquierda = false;
+                central = false;
+                inferiorIzquierda = false;
+                inferior = false;
+                break;
+            case 2:
+                superiorIzquierda = false;
+                inferiorDerecha = false;
+                break;
+            case 3:
+                superiorIzquierda = false;
+                inferiorIzquierda = false;
+                break;
+            case 4:
+                superior = false;
+                inferiorIzquierda = false;
+                inferior = false;
+                break;
+            case 5:
+                superiorDerecha = false;
+                inferiorIzquierda = false;
+                break;
+            case 6:
+                superiorDerecha = false;
+                break;
+            case 7:
+                superiorIzquierda = false;
+                central = false;
+                inferiorIzquierda = false;
+                inferior = false;
+                break;
+            case 9:
+                inferiorIzquierda = false;
+                break;
+            default:
+                break;
+        }
+
         for (int i = 0; i < ALTO; i++) {
             switch (i) {
                 case 0: 
@@ -40,12 +96,12 @@ public class App {
                     break;
                 case 1:
                     vertical(superiorIzquierda, ANCHO - 2, 0);
-                    vertical(superiorDerecha, 1, 1);
+                    vertical(superiorDerecha, 2, 1);
                     System.out.println();
                     break;
                 case 2:
                     vertical(superiorIzquierda, ANCHO - 2, 0);
-                    vertical(superiorDerecha, 1, 0);
+                    vertical(superiorDerecha, 2, 1);
                     System.out.println();
                     break;
                 case 3:
